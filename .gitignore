@@ -1,0 +1,10 @@
+.venv/
+.env
+__pycache__/
+data/uploads/
+docs_test.zip
+eval_*.csv
+*.pyc
+node_modules/
+frontend/dist/
+.DS_Store

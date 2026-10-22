@@ -1,0 +1,511 @@
+[
+  {
+    "id": "Q01",
+    "question": "Quel est le montant maximum remboursé pour les repas par jour en déplacement ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "80"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q02",
+    "question": "Combien est remboursé le kilométrage avec mon auto personnelle ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "0,62"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q03",
+    "question": "À partir de quel montant une dépense doit-elle être approuvée par le gestionnaire ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "500"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q04",
+    "question": "Dans quel délai dois-je soumettre mes reçus ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "30"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q05",
+    "question": "Quel est le plafond pour une nuit d'hôtel ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "210"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q06",
+    "question": "À quelle heure dois-je arriver le premier jour ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Guide_Accueil.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Onboarding_Guide.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "9 h"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q07",
+    "question": "Combien de temps dure la période de probation ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Guide_Accueil.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Onboarding_Guide.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "90"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q08",
+    "question": "Quand commence l'assurance collective ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Guide_Accueil.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Onboarding_Guide.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "trois mois"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q09",
+    "question": "Combien de caractères doit avoir un mot de passe ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Procedure_TI.pdf",
+        "page": 1
+      },
+      {
+        "filename": "IT_Security_Procedure.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "14"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q10",
+    "question": "Dans quel délai dois-je signaler un ordinateur volé ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Procedure_TI.pdf",
+        "page": 1
+      },
+      {
+        "filename": "IT_Security_Procedure.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "2 heures"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q11",
+    "question": "Quel est le délai de réponse du soutien TI pour un employé bloqué ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Procedure_TI.pdf",
+        "page": 1
+      },
+      {
+        "filename": "IT_Security_Procedure.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "4 heures"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q12",
+    "question": "Dans quel délai faut-il déclarer un accident de travail ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_SST.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Health_Safety_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "24 heures",
+      "registre"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q13",
+    "question": "Où est le point de rassemblement en cas d'évacuation ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_SST.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Health_Safety_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "stationnement nord"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q14",
+    "question": "Quelle est la valeur maximale d'un cadeau qu'on peut accepter d'un fournisseur ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Code_Conduite.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Code_of_Conduct.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "100"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q15",
+    "question": "Est-ce que je peux faire un signalement anonyme ?",
+    "type": "directe",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Code_Conduite.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Code_of_Conduct.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "anonyme"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q16",
+    "question": "Puis-je prendre des vacances pendant ma probation ?",
+    "type": "piège",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Guide_Accueil.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Onboarding_Guide.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "s’accumulent",
+      "autorisation"
+    ],
+    "note": "La politique RH donne le nombre de semaines, mais c'est le guide d'accueil qui interdit de les prendre pendant la probation."
+  },
+  {
+    "id": "Q17",
+    "question": "Combien de jours de télétravail puis-je faire pendant mon premier mois ?",
+    "type": "piège",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Guide_Accueil.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Onboarding_Guide.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "30 premiers jours",
+      "bureau"
+    ],
+    "note": "RH-05 dit 3 jours/semaine, mais ACC-05 impose le bureau pendant 30 jours."
+  },
+  {
+    "id": "Q18",
+    "question": "Les frais de déplacement pour une formation sont-ils déduits du budget de 750 $ ?",
+    "type": "piège",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "ne sont pas déduits"
+    ],
+    "note": "Croise RH-07 (750 $) et DEP-06."
+  },
+  {
+    "id": "Q19",
+    "question": "L'allocation pour une chaise de télétravail est-elle prise dans mon budget de formation ?",
+    "type": "piège",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_SST.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Health_Safety_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "300",
+      "ne fait pas partie"
+    ],
+    "note": ""
+  },
+  {
+    "id": "Q20",
+    "question": "Puis-je utiliser ChatGPT avec des documents de l'entreprise ?",
+    "type": "piège",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Procedure_TI.pdf",
+        "page": 2
+      },
+      {
+        "filename": "IT_Security_Procedure.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Politique_RH.pdf",
+        "page": 2
+      },
+      {
+        "filename": "HR_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "interdit",
+      "autorisation"
+    ],
+    "note": "TI-05 renvoie à RH-08 : deux documents."
+  },
+  {
+    "id": "Q21",
+    "question": "Un congé après un accident de travail réduit-il mes vacances ?",
+    "type": "piège",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_SST.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Health_Safety_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "pas déduit"
+    ],
+    "note": "Le mot « congé » apparaît dans plusieurs documents."
+  },
+  {
+    "id": "Q22",
+    "question": "Dois-je changer mon mot de passe tous les 90 jours ?",
+    "type": "piège",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Procedure_TI.pdf",
+        "page": 1
+      },
+      {
+        "filename": "IT_Security_Procedure.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "pas changés périodiquement"
+    ],
+    "note": "La question contient une fausse prémisse."
+  },
+  {
+    "id": "Q23",
+    "question": "Puis-je accepter une carte-cadeau de 50 $ d'un fournisseur ?",
+    "type": "piège",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Code_Conduite.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Code_of_Conduct.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "jamais"
+    ],
+    "note": "Sous 100 $, mais les cartes-cadeaux sont toujours interdites."
+  },
+  {
+    "id": "Q24",
+    "question": "Quel est le salaire du PDG ?",
+    "type": "hors_sujet",
+    "expected_found": false,
+    "expected_sources": [],
+    "must_contain": [],
+    "note": ""
+  },
+  {
+    "id": "Q25",
+    "question": "Quel est le numéro de téléphone du soutien TI ?",
+    "type": "hors_sujet",
+    "expected_found": false,
+    "expected_sources": [],
+    "must_contain": [],
+    "note": "Le portail est mentionné, pas de numéro : le RAG ne doit pas en inventer un."
+  },
+  {
+    "id": "Q26",
+    "question": "Combien de jours de congé de maternité ai-je droit ?",
+    "type": "hors_sujet",
+    "expected_found": false,
+    "expected_sources": [],
+    "must_contain": [],
+    "note": "Sujet proche (congés) mais absent des documents."
+  },
+  {
+    "id": "Q27",
+    "question": "Quelle est la capitale de la France ?",
+    "type": "hors_sujet",
+    "expected_found": false,
+    "expected_sources": [],
+    "must_contain": [],
+    "note": ""
+  }
+]

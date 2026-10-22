@@ -1,0 +1,530 @@
+[
+  {
+    "id": "E01",
+    "question": "What is the maximum meal allowance per day when travelling?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "80"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E02",
+    "question": "How much is mileage reimbursed when I use my own car?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "0.62"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E03",
+    "question": "Above what amount does an expense need my manager's approval?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "500"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E04",
+    "question": "How long do I have to submit my receipts?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "30"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E05",
+    "question": "What is the nightly hotel limit?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "210"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E06",
+    "question": "What time should I arrive on my first day?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Guide_Accueil.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Onboarding_Guide.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "9 a.m."
+    ],
+    "note": ""
+  },
+  {
+    "id": "E07",
+    "question": "How long is the probation period?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Guide_Accueil.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Onboarding_Guide.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "90"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E08",
+    "question": "When does group insurance start?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Guide_Accueil.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Onboarding_Guide.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "three months"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E09",
+    "question": "How many characters must a password have?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Procedure_TI.pdf",
+        "page": 1
+      },
+      {
+        "filename": "IT_Security_Procedure.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "14"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E10",
+    "question": "How quickly must I report a stolen laptop?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Procedure_TI.pdf",
+        "page": 1
+      },
+      {
+        "filename": "IT_Security_Procedure.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "2 hours"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E11",
+    "question": "What is IT support's response time when one employee is blocked?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Procedure_TI.pdf",
+        "page": 1
+      },
+      {
+        "filename": "IT_Security_Procedure.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "4 business hours"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E12",
+    "question": "How soon must a workplace accident be reported?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_SST.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Health_Safety_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "24 hours"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E13",
+    "question": "Where is the assembly point during an evacuation?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_SST.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Health_Safety_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "north"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E14",
+    "question": "What is the maximum value of a gift I can accept from a supplier?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Code_Conduite.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Code_of_Conduct.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "100"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E15",
+    "question": "Can I report something anonymously?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Code_Conduite.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Code_of_Conduct.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "anonym"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E16",
+    "question": "How many weeks of vacation do I get after 3 years of service?",
+    "type": "direct",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_RH.pdf",
+        "page": 1
+      },
+      {
+        "filename": "HR_Policy.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "4 weeks"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E17",
+    "question": "Can I take vacation during my probation?",
+    "type": "trick",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Guide_Accueil.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Onboarding_Guide.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "accrue",
+      "authorization"
+    ],
+    "note": "HR policy gives the weeks; the onboarding guide forbids taking them during probation."
+  },
+  {
+    "id": "E18",
+    "question": "How many remote work days can I take in my first month?",
+    "type": "trick",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Guide_Accueil.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Onboarding_Guide.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "30 days",
+      "office"
+    ],
+    "note": "HR-05 says 3 days/week, but ONB-05 requires the office for the first 30 days."
+  },
+  {
+    "id": "E19",
+    "question": "Are travel costs for a training course deducted from my $750 budget?",
+    "type": "trick",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_Depenses.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Expense_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "not deducted"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E20",
+    "question": "Does the allowance for a home-office chair come out of my training budget?",
+    "type": "trick",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_SST.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Health_Safety_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "300",
+      "not part"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E21",
+    "question": "Can I use ChatGPT with company documents?",
+    "type": "trick",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Procedure_TI.pdf",
+        "page": 2
+      },
+      {
+        "filename": "IT_Security_Procedure.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Politique_RH.pdf",
+        "page": 2
+      },
+      {
+        "filename": "HR_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "prohibited",
+      "authorization"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E22",
+    "question": "Does leave after a workplace accident reduce my vacation?",
+    "type": "trick",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Politique_SST.pdf",
+        "page": 2
+      },
+      {
+        "filename": "Health_Safety_Policy.pdf",
+        "page": 2
+      }
+    ],
+    "must_contain": [
+      "not deducted"
+    ],
+    "note": ""
+  },
+  {
+    "id": "E23",
+    "question": "Do I need to change my password every 90 days?",
+    "type": "trick",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Procedure_TI.pdf",
+        "page": 1
+      },
+      {
+        "filename": "IT_Security_Procedure.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "not changed periodically"
+    ],
+    "note": "False premise."
+  },
+  {
+    "id": "E24",
+    "question": "Can I accept a $50 gift card from a supplier?",
+    "type": "trick",
+    "expected_found": true,
+    "expected_sources": [
+      {
+        "filename": "Code_Conduite.pdf",
+        "page": 1
+      },
+      {
+        "filename": "Code_of_Conduct.pdf",
+        "page": 1
+      }
+    ],
+    "must_contain": [
+      "never"
+    ],
+    "note": "Under $100, but gift cards are always refused."
+  },
+  {
+    "id": "E25",
+    "question": "What is the CEO's salary?",
+    "type": "off_topic",
+    "expected_found": false,
+    "expected_sources": [],
+    "must_contain": [],
+    "note": ""
+  },
+  {
+    "id": "E26",
+    "question": "What is the IT support phone number?",
+    "type": "off_topic",
+    "expected_found": false,
+    "expected_sources": [],
+    "must_contain": [],
+    "note": "Only the portal is mentioned; must not invent a number."
+  },
+  {
+    "id": "E27",
+    "question": "How many weeks of parental leave am I entitled to?",
+    "type": "off_topic",
+    "expected_found": false,
+    "expected_sources": [],
+    "must_contain": [],
+    "note": ""
+  },
+  {
+    "id": "E28",
+    "question": "What is the capital of France?",
+    "type": "off_topic",
+    "expected_found": false,
+    "expected_sources": [],
+    "must_contain": [],
+    "note": ""
+  }
+]
