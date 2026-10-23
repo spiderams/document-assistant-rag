@@ -8,11 +8,27 @@ export interface Source {
   similarity: number
 }
 
+export interface Me {
+  id: string
+  email: string
+  role: 'admin' | 'user'
+}
+
+export interface ToolCall {
+  tool: string
+  input: Record<string, unknown>
+  result: string
+  ms: number
+}
+
 export interface AskResponse {
   question: string
   answer: string
   found: boolean
   sources: Source[]
+  // Présents seulement pour les réponses de l'agent (/agent)
+  tools_used?: ToolCall[]
+  duration_ms?: number
 }
 
 export type DocStatus = 'uploaded' | 'indexed' | 'error'

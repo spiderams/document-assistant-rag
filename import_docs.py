@@ -8,6 +8,8 @@ from pathlib import Path
 
 import httpx
 
+from client_auth import auth_headers
+
 API = "http://127.0.0.1:8000"
 
 
@@ -20,7 +22,7 @@ def main():
         print(f"Aucun PDF trouvé dans {folder.resolve()}")
         return
 
-    with httpx.Client(timeout=120) as client:
+    with httpx.Client(headers=auth_headers("admin"), timeout=120) as client:
         try:
             r = client.get(f"{API}/documents")
         except httpx.ConnectError:

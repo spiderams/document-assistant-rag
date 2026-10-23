@@ -39,3 +39,36 @@ language sql stable as $$
   order by c.embedding <=> query_embedding
   limit match_count;
 $$;
+
+-- Version 2 : journal de l'agent
+create table if not exists agent_runs (
+  id           bigserial primary key,
+  question     text not null,
+  tools        jsonb not null default '[]',  -- [{tool, input, result, ms}]
+  answer       text,
+  found        boolean,
+  source_count int,
+  duration_ms  int,
+  created_at   timestamptz default now()
+);
+
+-- Version 3 : sécurité ------------------------------------------------------
+
+-- Rôles des utilisateurs (Supabase Auth). Sans ligne ici, un utilisateur connecté a le rôle "user".
+create table if not exists profiles (
+  user_id    uuid primary key references auth.users(id) on delete cascade,
+  role       text not null default 'user' check (role in ('admin', 'user')),
+  created_at timestamptz default now()
+);
+
+-- L'interface contient maintenant la clé publique (publishable) de Supabase.
+-- Sans RLS, cette clé permettrait de lire ou supprimer les tables directement, en contournant FastAPI.
+-- RLS activé + aucune politique = aucun accès avec la clé publique. Le backend (clé secrète) n'est pas concerné.
+alter table documents  enable row level security;
+alter table pages      enable row level security;
+alter table chunks     enable row level security;
+alter table agent_runs enable row level security;
+alter table profiles   enable row level security;
+
+-- La recherche vectorielle ne doit être appelable que par le backend.
+revoke execute on function match_chunks(vector, int) from public, anon, authenticated;

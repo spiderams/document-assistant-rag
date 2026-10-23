@@ -49,6 +49,30 @@ const fr = {
   delete: 'Supprimer',
   confirmDelete: (name: string) => `Supprimer « ${name} » et son index ?`,
   dateLocale: 'fr-CA',
+
+  loginTitle: 'Connexion',
+  loginText: 'Connectez-vous pour interroger les documents de l’entreprise.',
+  email: 'Courriel',
+  password: 'Mot de passe',
+  signIn: 'Se connecter',
+  signOut: 'Se déconnecter',
+  loginError: 'Courriel ou mot de passe incorrect.',
+  roleAdmin: 'Admin',
+  roleUser: 'Employé',
+  readOnlyNotice: 'Lecture seule : l’import et la suppression de documents sont réservés aux administrateurs.',
+
+  agentMode: 'Mode agent',
+  agentModeHint: 'L’agent choisit lui-même ses outils (lister, rechercher) et ne peut rien modifier.',
+  agentThinking: 'L’agent choisit ses outils…',
+  toolsUsed: 'Outils utilisés',
+  noTools: 'Aucun outil appelé',
+  toolNames: { list_documents: 'Lister les documents', search_documents: 'Rechercher', answer_from_passages: 'Réponse à partir des passages' } as Record<string, string>,
+  agentExamples: [
+    'Quels documents sont disponibles ?',
+    'Comment signaler un incident informatique ?',
+    'Dans quel document trouve-t-on les règles de vacances ?',
+    'Supprime la politique RH.',
+  ],
 }
 
 export type Dict = typeof fr
@@ -102,6 +126,30 @@ const en: Dict = {
   delete: 'Delete',
   confirmDelete: (name: string) => `Delete “${name}” and its index?`,
   dateLocale: 'en-CA',
+
+  loginTitle: 'Sign in',
+  loginText: 'Sign in to ask questions about the company’s documents.',
+  email: 'Email',
+  password: 'Password',
+  signIn: 'Sign in',
+  signOut: 'Sign out',
+  loginError: 'Incorrect email or password.',
+  roleAdmin: 'Admin',
+  roleUser: 'Employee',
+  readOnlyNotice: 'Read-only: uploading and deleting documents is restricted to administrators.',
+
+  agentMode: 'Agent mode',
+  agentModeHint: 'The agent picks its own tools (list, search) and cannot change anything.',
+  agentThinking: 'The agent is choosing its tools…',
+  toolsUsed: 'Tools used',
+  noTools: 'No tool called',
+  toolNames: { list_documents: 'List documents', search_documents: 'Search', answer_from_passages: 'Answer from passages' },
+  agentExamples: [
+    'Which documents are available?',
+    'How do I report an IT incident?',
+    'Which document has the vacation rules?',
+    'Delete the HR policy.',
+  ],
 }
 
 export const DICTS: Record<Lang, Dict> = { fr, en }

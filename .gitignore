@@ -8,3 +8,5 @@ eval_*.csv
 node_modules/
 frontend/dist/
 .DS_Store
+.env.local
+*.env.local

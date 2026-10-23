@@ -18,7 +18,9 @@ Policies, onboarding guides and procedures are spread across dozens of PDFs. Emp
 - **Bilingual** — answers in the language of the question (French or English), even when the source document is in the other language. Quotes stay in the original language so they can be verified.
 - **Handles cross-document questions** — e.g. vacation entitlement is in the HR policy, but the onboarding guide says vacation can't be taken during probation.
 - **Document management** — drag-and-drop PDF upload, automatic indexing, re-index and delete.
-- **Automated evaluation** — 55 test questions score every change.
+- **Agent mode** — Claude chooses its own read-only tools (list documents, search content), every run is logged, and destructive requests are refused.
+- **Secured API** — sign-in with Supabase Auth, admin and employee roles checked on every FastAPI route (401 / 403), per-user rate limit (429), and database tables locked with row-level security.
+- **Automated evaluation** — 55 test questions for the Q&A route, plus a separate test set for the agent (tool choice and safety).
 
 ## Architecture
 
@@ -83,18 +85,68 @@ python eval.py questions_test.json      # French  -> eval_test.csv
 python eval.py questions_test_en.json   # English -> eval_test_en.csv
 ```
 
+## Agent mode (v2)
+
+`POST /agent` turns the assistant into a small agent. Claude receives two **read-only** tools and decides which ones to call, possibly several times, before answering:
+
+| Tool | What it does |
+|---|---|
+| `list_documents` | Lists the indexed documents (file, pages, status) |
+| `search_documents(query)` | Semantic search, same engine as `/ask` |
+
+```
+Question ──► Claude (tool use) ──► list_documents / search_documents ──► Claude ──► … (max 4 rounds)
+                                                                                │
+                                         final JSON answer + quotes ◄───────────┘
+                                                      │
+                                     same quote verification as /ask
+                                                      │
+                                answer + sources + tools used ──► agent_runs (log)
+```
+
+**Safety by design**
+- The agent has **no write tool**: it cannot delete, modify, upload or send anything. Requests such as "Delete the HR policy" or prompt-injection attempts are refused, and the evaluation checks that the document count is unchanged afterwards.
+- Tool results are treated as data, not instructions.
+- After 4 tool rounds, tools are disabled to force a final answer (no infinite loops).
+- Every run is stored in `agent_runs` (question, tools and arguments, result, duration) and can be read at `GET /agent/runs`.
+
+In the interface, the **Agent mode** switch sends questions to `/agent` and shows which tools were used under each answer.
+
+```powershell
+python eval_agent.py   # tool choice, content, off-topic and safety checks
+```
+
+## Security (v3)
+
+Access control is enforced **in FastAPI**, not only hidden in the interface.
+
+| Route | No token | Employee | Admin |
+|---|---|---|---|
+| `GET /me`, `GET /documents`, `GET /documents/{id}/file` | 401 | ✅ | ✅ |
+| `POST /ask`, `POST /agent`, `GET /search` | 401 | ✅ rate-limited | ✅ |
+| `POST /documents`, `DELETE /documents/{id}`, `POST /documents/{id}/index` | 401 | 403 | ✅ |
+| `GET /agent/runs` | 401 | 403 | ✅ |
+
+- **Authentication:** Supabase Auth (email + password). The frontend sends the user's token; the backend verifies it with Supabase on each request (cached 60 s).
+- **Roles:** stored in a `profiles` table and read by the backend. The interface only hides admin buttons for convenience; the server decides.
+- **Rate limit:** 10 questions per minute and 200 per day per employee (configurable), `429` with `Retry-After`. Admins are not limited.
+- **Database lockdown:** the frontend holds the public Supabase key, so every table has row-level security enabled with no policy, and the vector search function can only be called by the backend. All data goes through FastAPI.
+- **Tests:** `python test_security.py` checks every route without a token, with an invalid token, as an employee and as an admin, plus the rate limiter. None of the checks deletes data or calls the AI.
+
+**Not covered yet: multi-company isolation.** For several companies on one installation, documents, pages and chunks need an `organization_id`, the vector search must filter on the caller's organization (taken from their profile, never from the request), and tests must prove that one company cannot retrieve another company's passages.
+
 ## Run it locally
 
 **Requirements:** Python 3.11+, Node.js 18+, a Supabase project, OpenAI and Anthropic API keys.
 
-**1. Database** — in Supabase > SQL Editor, run `supabase/schema.sql`.
+**1. Database** — in Supabase > SQL Editor, run `supabase/schema.sql` (tables, vector search, agent log, security). Create two users in Authentication > Users, then set their roles with `supabase/security.sql`.
 
 **2. Backend**
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-copy .env.example .env      # then fill in the keys
+copy .env.example .env      # then fill in the keys and the two test accounts
 python -m uvicorn app.main:app --reload
 ```
 API docs: http://localhost:8000/docs
@@ -103,11 +155,13 @@ API docs: http://localhost:8000/docs
 ```powershell
 python import_docs.py docs_test
 python import_docs.py docs_test_en
+python test_security.py
 ```
 After changing the chunking, re-index everything with `python import_docs.py docs_test --reindex` (same for `docs_test_en`).
 
 **4. Frontend** (in `frontend/`)
 ```powershell
+copy .env.example .env.local   # Supabase URL + publishable key
 npm install
 npm run dev
 ```
@@ -124,6 +178,9 @@ Open http://localhost:5173
 | POST | `/documents/{id}/index` | Chunk, embed and store vectors |
 | GET | `/search?q=` | Debug: raw nearest passages |
 | POST | `/ask` | Question → answer with verified citations |
+| POST | `/agent` | Question → agent picks tools → answer with verified citations + tools used |
+| GET | `/agent/runs` | Agent log: latest runs (admin) |
+| GET | `/me` | Signed-in user and role |
 
 ## Project structure
 
@@ -135,18 +192,28 @@ app/
   chunking.py     page-level chunking with overlap
   embeddings.py   OpenAI embeddings (batched)
   answer.py       prompt, language handling, JSON parsing, quote verification
+  retrieval.py    vector search shared by /ask and the agent
+  agent.py        agent loop, tools, run log
+  security.py     authentication, roles, rate limit
 supabase/schema.sql
 frontend/         React interface (see frontend/README.md)
 docs_test/        fictional company documents (French)
 docs_test_en/     the same documents in English
 questions_test.json / questions_test_en.json
-eval.py           automated evaluation
+eval.py           automated evaluation (/ask)
+eval_agent.py     agent evaluation (tool choice + safety)
+test_security.py  401 / 403 / 429 checks on every route
+client_auth.py    sign-in helper for the scripts
+questions_agent.json
 import_docs.py    bulk upload + indexing
 ```
 
 ## Next steps
 
 - Public read-only demo (rate limiting, upload disabled)
+- Multi-company isolation (organization_id + filtered vector search)
+- Write actions with human confirmation (agent prepares, a person confirms in the UI)
+- Expose the tools as an MCP server
 - Role-based access (e.g. HR documents visible to HR only)
 - Section-aware chunking (split on headings such as `HR-03`)
 - OCR for scanned PDFs

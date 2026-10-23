@@ -70,29 +70,15 @@ def _parse_json(text: str) -> dict:
     return data
 
 
-def answer_question(question: str, passages: list[dict]) -> dict:
-    context = "\n\n".join(
-        f'<passage id="{i}" fichier="{p["filename"]}" page="{p["page_number"]}">\n{p["content"]}\n</passage>'
-        for i, p in enumerate(passages, start=1)
-    )
+def verify_citations(answer: str, citations: list[dict], passages: list[dict]) -> tuple[str, list[dict]]:
+    """Vérifie chaque citation mot pour mot, corrige les numéros erronés et renumérote 1, 2, 3…
 
-    msg = client.messages.create(
-        model=MODEL,
-        max_tokens=800,
-        system=SYSTEM,
-        messages=[{"role": "user", "content": f"<passages>\n{context}\n</passages>\n\nQuestion : {question}"}],
-    )
-    text = "".join(b.text for b in msg.content if b.type == "text").strip()
-    data = _parse_json(text)
-
-    if not data.get("found") or not data.get("answer", "").strip():
-        return {"answer": not_found_message(question), "found": False, "sources": []}
-
-    answer = data["answer"].strip()
+    Utilisée par /ask et par l'agent (/agent)."""
+    answer = answer.strip()
     sources = []
     seen = set()
 
-    for c in data.get("citations", []):
+    for c in citations or []:
         ref = c.get("ref")
         quote = (c.get("quote") or "").strip()
         if not isinstance(ref, int) or not 1 <= ref <= len(passages):
@@ -132,4 +118,26 @@ def answer_question(question: str, passages: list[dict]) -> dict:
     for s in sources:
         s["ref"] = mapping[s["ref"]]
 
+    return answer, sources
+
+
+def answer_question(question: str, passages: list[dict]) -> dict:
+    context = "\n\n".join(
+        f'<passage id="{i}" fichier="{p["filename"]}" page="{p["page_number"]}">\n{p["content"]}\n</passage>'
+        for i, p in enumerate(passages, start=1)
+    )
+
+    msg = client.messages.create(
+        model=MODEL,
+        max_tokens=800,
+        system=SYSTEM,
+        messages=[{"role": "user", "content": f"<passages>\n{context}\n</passages>\n\nQuestion : {question}"}],
+    )
+    text = "".join(b.text for b in msg.content if b.type == "text").strip()
+    data = _parse_json(text)
+
+    if not data.get("found") or not data.get("answer", "").strip():
+        return {"answer": not_found_message(question), "found": False, "sources": []}
+
+    answer, sources = verify_citations(data["answer"], data.get("citations", []), passages)
     return {"answer": answer, "found": True, "sources": sources}

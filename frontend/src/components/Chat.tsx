@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { api } from '../api'
-import type { AskResponse, Source } from '../types'
+import type { AskResponse, Source, ToolCall } from '../types'
 import type { Dict } from '../i18n'
 
 interface Turn {
   id: number
   question: string
+  agent: boolean
   response?: AskResponse
   error?: string
 }
@@ -14,6 +15,7 @@ export default function Chat({ t }: { t: Dict }) {
   const [turns, setTurns] = useState<Turn[]>([])
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
+  const [agentMode, setAgentMode] = useState(false)
   const endRef = useRef<HTMLDivElement>(null)
   const nextId = useRef(1)
 
@@ -25,11 +27,12 @@ export default function Chat({ t }: { t: Dict }) {
     const q = question.trim()
     if (!q || busy) return
     const id = nextId.current++
-    setTurns((t) => [...t, { id, question: q }])
+    const useAgent = agentMode
+    setTurns((t) => [...t, { id, question: q, agent: useAgent }])
     setInput('')
     setBusy(true)
     try {
-      const response = await api.ask(q)
+      const response = useAgent ? await api.agent(q) : await api.ask(q)
       setTurns((t) => t.map((x) => (x.id === id ? { ...x, response } : x)))
     } catch (e) {
       setTurns((t) => t.map((x) => (x.id === id ? { ...x, error: (e as Error).message } : x)))
@@ -50,7 +53,7 @@ export default function Chat({ t }: { t: Dict }) {
           <h1>{t.emptyTitle}</h1>
           <p className="muted">{t.emptyText}</p>
           <div className="examples">
-            {t.examples.map((ex) => (
+            {(agentMode ? t.agentExamples : t.examples).map((ex) => (
               <button key={ex} className="chip" onClick={() => ask(ex)}>
                 {ex}
               </button>
@@ -63,12 +66,22 @@ export default function Chat({ t }: { t: Dict }) {
         {turns.map((turn) => (
           <article key={turn.id} className="turn">
             <div className="bubble question">{turn.question}</div>
-            {!turn.response && !turn.error && <div className="bubble answer loading">{t.searching}</div>}
+            {!turn.response && !turn.error && (
+              <div className="bubble answer loading">{turn.agent ? t.agentThinking : t.searching}</div>
+            )}
             {turn.error && <div className="bubble answer error">{t.error} : {turn.error}</div>}
             {turn.response && <Answer response={turn.response} t={t} />}
           </article>
         ))}
         <div ref={endRef} />
+      </div>
+
+      <div className="agent-toggle">
+        <label>
+          <input type="checkbox" checked={agentMode} onChange={(e) => setAgentMode(e.target.checked)} />
+          <span>{t.agentMode}</span>
+        </label>
+        <span className="muted small">{t.agentModeHint}</span>
       </div>
 
       <form className="composer" onSubmit={submit}>
@@ -90,10 +103,13 @@ export default function Chat({ t }: { t: Dict }) {
 function Answer({ response, t }: { response: AskResponse; t: Dict }) {
   const [active, setActive] = useState<number | null>(response.sources[0]?.ref ?? null)
 
+  const tools = response.tools_used ? <ToolTrace calls={response.tools_used} t={t} /> : null
+
   if (!response.found) {
     return (
       <div className="bubble answer not-found">
         <strong>{t.notFound}</strong> {response.answer}
+        {tools}
       </div>
     )
   }
@@ -108,6 +124,25 @@ function Answer({ response, t }: { response: AskResponse; t: Dict }) {
           ))}
         </div>
       )}
+      {tools}
+    </div>
+  )
+}
+
+function ToolTrace({ calls, t }: { calls: ToolCall[]; t: Dict }) {
+  return (
+    <div className="tool-trace">
+      <span className="muted small">{t.toolsUsed} :</span>
+      {calls.length === 0 && <span className="tool-chip none">{t.noTools}</span>}
+      {calls.map((c, i) => {
+        const query = typeof c.input.query === 'string' ? c.input.query : ''
+        return (
+          <span key={i} className="tool-chip" title={`${c.result} · ${c.ms} ms`}>
+            {t.toolNames[c.tool] ?? c.tool}
+            {query && <em> « {query} »</em>}
+          </span>
+        )
+      })}
     </div>
   )
 }
@@ -158,15 +193,15 @@ function SourceCard({ source, active, onSelect, t }: { source: Source; active: b
       {active && (
         <>
           <blockquote>“{source.quote}”</blockquote>
-          <a
-            className="open-pdf"
-            href={api.fileUrl(source.document_id, source.page)}
-            target="_blank"
-            rel="noreferrer"
-            onClick={(e) => e.stopPropagation()}
+          <button
+            className="open-pdf link-btn"
+            onClick={(e) => {
+              e.stopPropagation()
+              api.openFile(source.document_id, source.page).catch(() => undefined)
+            }}
           >
             {t.openPdf(source.page)}
-          </a>
+          </button>
         </>
       )}
     </div>

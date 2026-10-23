@@ -9,7 +9,7 @@ interface UploadTask {
   message?: string
 }
 
-export default function Documents({ t }: { t: Dict }) {
+export default function Documents({ t, isAdmin }: { t: Dict; isAdmin: boolean }) {
   const [docs, setDocs] = useState<Doc[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -99,6 +99,7 @@ export default function Documents({ t }: { t: Dict }) {
 
   return (
     <section className="docs">
+      {isAdmin ? (
       <div
         className={dragging ? 'dropzone dragging' : 'dropzone'}
         onDragOver={(e) => {
@@ -126,6 +127,9 @@ export default function Documents({ t }: { t: Dict }) {
           }}
         />
       </div>
+      ) : (
+        <p className="notice">{t.readOnlyNotice}</p>
+      )}
 
       {tasks.length > 0 && (
         <ul className="tasks">
@@ -172,9 +176,9 @@ export default function Documents({ t }: { t: Dict }) {
               {docs.map((d) => (
                 <tr key={d.id}>
                   <td>
-                    <a href={api.fileUrl(d.id)} target="_blank" rel="noreferrer">
+                    <button className="link-btn" onClick={() => api.openFile(d.id).catch((e) => setError((e as Error).message))}>
                       {d.filename}
-                    </a>
+                    </button>
                     {d.error && <div className="error-text small">{d.error}</div>}
                   </td>
                   <td className="num">{d.page_count ?? '—'}</td>
@@ -183,6 +187,8 @@ export default function Documents({ t }: { t: Dict }) {
                   </td>
                   <td className="muted">{new Date(d.created_at).toLocaleDateString(t.dateLocale)}</td>
                   <td className="actions">
+                    {isAdmin && (
+                      <>
                     {d.status !== 'indexed' && (
                       <button onClick={() => reindex(d)} disabled={busyId === d.id}>
                         {t.index}
@@ -191,6 +197,8 @@ export default function Documents({ t }: { t: Dict }) {
                     <button className="danger" onClick={() => remove(d)} disabled={busyId === d.id}>
                       {t.delete}
                     </button>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))}

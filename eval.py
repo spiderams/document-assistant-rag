@@ -6,6 +6,8 @@ import time
 
 import httpx
 
+from client_auth import auth_headers
+
 API_URL = "http://127.0.0.1:8000/ask"
 
 
@@ -40,7 +42,7 @@ def main():
     out_csv = qfile.replace("questions_", "eval_").replace(".json", ".csv")
     rows = []
 
-    with httpx.Client(timeout=60) as client:
+    with httpx.Client(headers=auth_headers("admin"), timeout=60) as client:
         for q in questions:
             t0 = time.time()
             try:
