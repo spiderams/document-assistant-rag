@@ -226,3 +226,4 @@ import_docs.py    bulk upload + indexing
 |---|---|
 | ![Answer with verified citation](docs/screenshots/01-chat-answer.png) | ![Trick question across two documents](docs/screenshots/02-trick-question.png) |
 | ![Documents](docs/screenshots/03-documents.png) | ![Evaluation](docs/screenshots/04-eval.png) |
+| ![Agent refuses a delete request, then searches](docs/screenshots/05-agent-refusal.png) | |
